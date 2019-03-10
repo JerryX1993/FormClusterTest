@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 output_key_col = 0
 output_value_col = 1
 output_type_col = 2

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 
 def insert_to_json(target_json, key, value, key_type, key_mode, key_upper):
     node_list = key_upper.split("/")

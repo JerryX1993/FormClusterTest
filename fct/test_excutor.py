@@ -1,4 +1,8 @@
-from src.mspccp.fct.single_testor import SingleTestor
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+from .single_testor import SingleTestor
 
 
 class TestExcutor:

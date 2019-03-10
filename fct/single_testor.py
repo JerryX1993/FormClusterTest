@@ -1,7 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import xlrd.xlsx
 
-from src.mspccp.fct.form_analyzer import FormAnalyzer
-from src.mspccp.fct.form_comparator import FormComparator
+from .form_analyzer import FormAnalyzer
+from .form_comparator import FormComparator
 
 input_sheet_name = "INPUT"
 output_sheet_name = "OUTPUT"

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import xmltodict
+import xmltodict, xlrd, xlwt
+from datetime import datetime
 import json
 
 
@@ -13,24 +14,14 @@ def format_json_file(json_file, encoding="utf-8"):
 
 def format_json(input_json, encoding="utf-8"):
     target_list = {}
-    def convert_flat(input_json, target_list, upper_name="", ):
-        for (key, value) in input_json.items():
-            if isinstance(value, dict):
-                target_list[key] = ("", "obj", upper_name)
-                node = key if upper_name == "" else upper_name + "/" + key
-                convert_flat(value, target_list, node)
-            else:
-                target_list[key] = (value, "str", upper_name)
-
-    convert_flat(input_json=request, target_list=target_list)
-
+    convert_flat(input_json=input_json, target_list=target_list)
     print(target_list)
-
     xls_name = datetime.strftime(datetime.now(), "%Y-%m-%d_%H-%M-%S") + '.xls'
 
     xls_file = xlwt.Workbook()
 
     input_table = xls_file.add_sheet("INPUT")
+    xls_file.add_sheet("OUTPUT")
 
     input_table.write(0, 0, 'KEY')
     input_table.write(0, 1, 'VALUE')
@@ -49,4 +40,15 @@ def format_json(input_json, encoding="utf-8"):
         cusor_row += 1
 
     xls_file.save(xls_name)
+
+
+def convert_flat(input_json, target_list, upper_name="", ):
+    for (key, value) in input_json.items():
+        if isinstance(value, dict):
+            target_list[key] = ("", "obj", upper_name)
+            node = key if upper_name == "" else upper_name + "/" + key
+            convert_flat(value, target_list, node)
+        else:
+            target_list[key] = (value, str(type(value))[8:-2], upper_name)
+
 

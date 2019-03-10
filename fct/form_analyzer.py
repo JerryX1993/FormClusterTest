@@ -1,5 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import json
-from src.mspccp.fct.json_utils import *
+from .json_utils import *
 
 input_key_col = 0
 input_value_col = 1
