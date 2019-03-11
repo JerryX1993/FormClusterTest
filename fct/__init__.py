@@ -6,6 +6,7 @@ from typing import List, Any
 from .test_excutor import TestExcutor
 from .test_form_loader import TestFormLoader
 from .format_sample import *
+from .attribute_model import *
 
 
 class FctSet:
@@ -15,6 +16,7 @@ class FctSet:
     output_mapper = None
     business_process = None
     error_msg = ""
+    model = {"chi_name": make_chi_name, "chi_id": make_chi_id}
 
     @staticmethod
     def set_init():
@@ -45,6 +47,10 @@ class FctSet:
     def set_business(f):
         FctSet.business_process = f
 
+    @staticmethod
+    def set_model(model_name, f):
+        FctSet.model[model_name] = f
+
 
 def path(path):
     def decorator(f):
@@ -74,6 +80,13 @@ def output(f):
 def business(f):
     FctSet.set_business(f)
     return f
+
+
+def model(model_name):
+    def decorator(f):
+        FctSet.set_model(model_name, f)
+        return f
+    return decorator
 
 
 def input_transparent(input):

@@ -13,4 +13,11 @@ class TestFCT(unittest.TestCase):
         def business(input):
             return {"ReturnCode": "0000"}
 
+        @fct.model("get_list")
+        def get_list():
+            return [1, 2]
+
+        print(fct.FctSet.model["get_list"]())
+        print(fct.FctSet.model["chi_name"]())
+        print(fct.FctSet.model["chi_id"]())
         assert fct.test(), fct.error_msg()
