@@ -3,7 +3,7 @@
 
 
 import json
-from .json_utils import *
+from form_cluster_test.utils.json_utils import *
 
 input_key_col = 0
 input_value_col = 1
@@ -31,7 +31,6 @@ class FormAnalyzer:
                 key_upper = input_sheet.cell(row, input_upper_col).value
                 key_bound = input_sheet.cell(row, input_bound_col).value
                 # key_note = input_sheet.cell(row, input_note_col).value
-
                 key_type, key_mode, key_upper = set_default_value(key_type, key_mode, key_upper)
                 input_json = insert_to_json(input_json, key, value, key_type, key_mode, key_upper)
             except Exception as e:

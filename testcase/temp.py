@@ -1,4 +1,4 @@
-import fct
+import form_cluster_test
 
 j = {
     "a": 1,
@@ -8,6 +8,6 @@ j = {
     "e": "sa"
 }
 
-fct.format_json(j)
+form_cluster_test.format_json(j)
 
 

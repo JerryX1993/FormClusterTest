@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from ..fct_set import FctSet
+
 
 def insert_to_json(target_json, key, value, key_type, key_mode, key_upper):
     node_list = key_upper.split("/")
@@ -51,6 +53,11 @@ def set_value(target_json, key, value, key_type):
         target_json[key] = True if key_type in ("True", "true") else False
     elif key_type == "null":
         target_json[key] = None
+    elif key_type == "model":
+        try:
+            target_json[key] = FctSet.model[value[2:-1]]()
+        except Exception as e:
+            target_json[key] = ""
     else:
         target_json[key] = value
     return target_json

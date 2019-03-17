@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import xmltodict, xlrd, xlwt
+import xml
 from datetime import datetime
 import json
 
@@ -9,6 +10,12 @@ import json
 def format_json_file(json_file, encoding="utf-8"):
     with open(json_file, encoding=encoding) as fd:
         input_json = json.loads(fd.read())
+    return format_json(input_json, encoding)
+
+
+def format_xml_file(xml_file, encoding="utf-8"):
+    with open(xml_file, encoding=encoding) as fd:
+        input_json = xmltodict.parse(fd.read())
     return format_json(input_json, encoding)
 
 

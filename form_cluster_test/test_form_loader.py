@@ -13,9 +13,9 @@ testcase_mode_col = 3
 
 
 class TestFormLoader:
-    def __init__(self, path, case):
+    def __init__(self, path, ref_case):
         self.path = path
-        self.case = case
+        self.ref_case = ref_case
         self.test_list = self._get_test_list()
         print(self.test_list)
         logging.info("Test List: " + str(self.test_list))
@@ -23,10 +23,40 @@ class TestFormLoader:
     def _get_test_list(self):
         test_list = []
         dir_list = os.listdir(self.path)
+        include_solo = False
         for file_name in dir_list:
             try:
+                test_name = file_name[:-4]
                 if file_name[-4:] == ".xls":
-                    test_list.append((file_name[:-4], 100))
+                    # cover test case with reference case
+                    try:
+                        test_type = self.ref_case[test_name]["type"]
+                    except Exception as e:
+                        test_type = "normal"
+                    try:
+                        test_times = self.ref_case[test_name]["times"]
+                    except Exception as e:
+                        test_times = 1
+
+                    # insert test list for each type
+                    if test_type == "skip":
+                        continue
+                    elif test_type == "solo":
+                        if not include_solo:
+                            # if there's no solo included, clear test list & tag included
+                            test_list = []
+                            include_solo = True
+                        else:
+                            # if there's already solo included, keep it
+                            pass
+                        test_list.append((test_name, test_times))
+                    else:
+                        if not include_solo:
+                            # if there's no solo included, insert to test list
+                            test_list.append((test_name, test_times))
+                        else:
+                            # if there's already solo included, skip it
+                            continue
                 else:
                     continue
             except Exception as e:
