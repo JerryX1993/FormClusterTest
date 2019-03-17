@@ -10,7 +10,7 @@ class TestFCT(unittest.TestCase):
     @fct.path(path="testcase/test_demo")
     @fct.case(cases=[("test_2", -2)])
     @fct.log(log_switch=True)
-    def test_demo(self):
+    def test_demo(self, test_id=23):
         @fct.model(model_name="get_list")
         def get_list():
             return True
